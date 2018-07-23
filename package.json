@@ -39,5 +39,6 @@
   },
   "eslintConfig": {
     "extends": "standard"
-  }
+  },
+  "dependencies": {}
 }
