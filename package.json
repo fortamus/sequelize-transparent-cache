@@ -22,7 +22,7 @@
   },
   "license": "CC-BY-4.0",
   "peerDependencies": {
-    "sequelize": "^3.0.0 || ^4.0.0"
+    "sequelize": "^4.0.0"
   },
   "devDependencies": {
     "codecov": "^3.0.0",
@@ -32,7 +32,7 @@
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
-    "sequelize": "^3.0.0 || ^4.0.0",
+    "sequelize": "^4.0.0",
     "sequelize-transparent-cache-variable": "^1.0.3",
     "sqlite3": "^3.1.8",
     "tap": "^10.3.2"
