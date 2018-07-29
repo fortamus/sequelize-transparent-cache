@@ -6,7 +6,7 @@ const Article = sequelize.models.Article
 const Comment = sequelize.models.Comment
 const cacheStore = User.cache().client().store
 
-t.test('Instance methods', async t => {
+t.test('Class methods', async t => {
   await sequelize.sync()
 
   t.deepEqual(cacheStore, {}, 'Cache is empty on start')
@@ -14,6 +14,16 @@ t.test('Instance methods', async t => {
   const user = await User.cache().create({
     id: 1,
     name: 'Daniel'
+  })
+
+  const user2 = await User.cache().create({
+    id: 4,
+    name: 'Mark'
+  })
+
+  const user3 = await User.cache().create({
+    id: 5,
+    name: 'Bob'
   })
 
   const article = await Article.cache().create({
@@ -65,8 +75,7 @@ t.test('Instance methods', async t => {
     t.deepEqual(
       (await User.cache().findById(1)).get(),
       (await User.findById(1)).get(),
-      'Timestamps synced after upsert',
-      {skip: true}
+      'Timestamps synced after upsert', { skip: true }
     )
 
     await user.cache().reload()
@@ -83,4 +92,28 @@ t.test('Instance methods', async t => {
   t.test('FindById', async t => {
     t.is(await User.cache().findById(2), null, 'Cache miss not causing any problem')
   })
+
+  t.test('FindAllById', async t => {
+    let users = User.cache().findAllById([1, 4, 5]);
+    console.log(typeof users);
+    users.then(tmp => {
+      //console.log(tmp[0]);
+    });
+
+
+    await t.test('check result', async(t) => {
+      //await users;
+      users.then(tmp => {
+
+      });
+      t.end();
+    })
+
+    await t.equal(
+      await User.cache().findAllById([1, 4, 5]), await Promise.all([User.findById(1), User.findById(4), User.findById(5)]),
+      'FindAllById returns expected', { skip: true }
+    )
+    //t.is(await User.cache().findAllById([1, 4, 5]), null, 'Cache miss not causing any problem')
+  })
+
 })
